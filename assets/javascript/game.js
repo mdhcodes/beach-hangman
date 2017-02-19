@@ -1,12 +1,10 @@
 // Beach Hangman Game
 
-
+// Global Variables
 var beachWords = ['beach', 'waves', 'ocean', 'bay', 'beachball', 'boardwalk', 'sea', 'boat', 'lifeguard', 'sand', 'seashells',
     'seashore', 'starfish', 'sun', 'sunglasses', 'tide', 'surfboard', 'swim', 'towel', 'seagulls'
 ];
 
-
-// Global Variables
 var wins = document.getElementById('wins');
 var guessesRemaining = document.getElementById('guesses-remaining');
 var alreadyGuessed = document.getElementById('already-guessed');
@@ -16,7 +14,6 @@ var spacesClass = document.getElementsByClassName('spaces');
 var randomWord = "";
 var numOfGuesses = 0;
 var numWins = 0;
-var lettersVisible = 0;
 var startOver = false;
 
 
