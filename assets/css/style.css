@@ -1,0 +1,85 @@
+body {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    color: #fff;
+    background-color: #bfc9d3;
+    background-image: url('../images/waves.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+main {
+    max-width: 960px;
+    margin: 0 auto;
+    color: #fff;
+}
+
+header {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.container {
+    width: 800px;
+    height: auto;
+    margin: 0 auto;
+}
+
+h3:last-child {
+    margin-top: 60px;
+    text-align: center;
+}
+
+#game {
+    width: 900px;
+    height: 200px;
+    margin: 0 auto 100px;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 40px;
+    position: relative;
+}
+
+.spaces,
+.letters {
+    text-align: center;
+    width: 50px;
+    display: inline-block;
+    margin-right: 10px;
+    position: relative;
+}
+
+.spaces {
+    bottom: 50px;
+    border-top: 5px solid #fff;
+}
+
+.letters {
+    visibility: hidden;
+}
+
+#message {
+    text-align: center;
+}
+
+footer {
+    font-size: 10px;
+    width: 100%;
+    text-align: center;
+}
