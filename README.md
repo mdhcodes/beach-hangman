@@ -1,6 +1,6 @@
 # beach-hangman
 
-mdhcodes.github.io/beach-hangman
+[Beach Hangman](mdhcodes.github.io/beach-hangman)
 
 This game uses key events to listen for the letters players type. 
 
