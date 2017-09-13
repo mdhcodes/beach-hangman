@@ -178,19 +178,23 @@ var beachHangman = {
 
 
 // Event listener to start the game.
-document.addEventListener('keydown', function pressDown(event) {
+document.addEventListener('keyup', function liftUp(event) {
 
     // Press any key to start the game.
-    // Listen for one keydown event only.
-    var keyDown = event.key;
+    // Listen for one keyup event only.
+    var keyUp = event.key;
     var count = 0;
-    if (keyDown) {
+    if (keyUp) {
+
+        // Hide the instructions to press any key to get started.
+        document.getElementById('start').style.display = 'none';
+
         count++;
         beachHangman.setUpGame();
         beachHangman.playGame();
     }
     if (count === 1) {
-        // After the initial keydown to start the game, remove the event listener.
-        document.removeEventListener('keydown', pressDown);
+        // After the initial keyup to start the game, remove the event listener.
+        document.removeEventListener('keyup', liftUp);
     }
 });
