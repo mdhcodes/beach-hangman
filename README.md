@@ -2,18 +2,20 @@
 
 [Beach Hangman](mdhcodes.github.io/beach-hangman)
 
-This game uses key events to listen for the letters players type. 
+1. This game uses key events to listen for the letters players type.
 
-When a player navigates to this website the following message is displayed: Press any key to get started!
+2. When a player navigates to this website the following message is displayed: Press any key to get started!
 
-Beach words stored in an array are randomly selected and spaces are displayed for each letter in that word. As the player guesses the correct letters, they are revealed.  
+3. Beach words stored in an array are randomly selected and spaces are displayed for each letter in that word. As the player guesses the correct letters, they are revealed.  
 
-The following statistics are recorded during the game:
+4. The following statistics are recorded during the game:
 
-Wins: (# of times a player guesses the word correctly).
+* Wins: (# of times a player guesses the word correctly).
 
-Number of Guesses Remaining: (# of guesses remaining for the player).
+* Number of Guesses Remaining: (# of guesses remaining for the player).
 
-Letters Already Guessed: (Letters the player has guessed are displayed).
+* Letters Already Guessed: (Letters the player has guessed that aren't in the word are displayed).
 
-After the player wins/loses, the game automatically selects another word from the array and the game restarts.
+5. After the player wins/loses, the player is given the option to restart or end the game.
+
+Enjoy the game!
