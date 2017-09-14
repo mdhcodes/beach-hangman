@@ -16,7 +16,6 @@ var beachHangman = {
   randomWord: "",
   numOfGuesses: 0,
   numWins: 0,
-  startOver: false,
   setUpGame: function() { // Function to prepare the game board.
 
       // Select a random word from the array of beachWords.
@@ -105,10 +104,10 @@ var beachHangman = {
 
                   // The game ends and the event listener is removed.
                   document.removeEventListener('keyup', release);
-                  // Display a message to the player on screen.
-                  message.innerHTML = 'You won! Let\'s play again.';
+
                   // numWins increases by 1.
                   beachHangman.numWins++;
+
                   // Update the DOM to reflect the number of wins.
                   wins.innerHTML = 'Wins: ' + beachHangman.numWins;
 
@@ -116,33 +115,35 @@ var beachHangman = {
                   alreadyGuessed.innerHTML = 'Letters Already Guessed: ';
                   guessesRemaining.innerHTML = "Number of Guesses Remaining: ";
 
-                  //Play ocean sounds when the user wins.
+                  // Play ocean sounds when the user wins.
                   var audio = new Audio('assets/audio/seashore.mp3');
                   audio.play();
 
-                  // Start the game over.
-                  beachHangman.startOver = true;
-                  // Delay the start of the next game.
-                  setTimeout(function() {
-                      if (beachHangman.startOver) {
-                          message.innerHTML = ''; // Clear the message to the user displayed upon winning.
-                          beachHangman.setUpGame();
-                          beachHangman.playGame();
-                      }
-                      beachHangman.startOver = false;
-                  }, 5000);
+                  // The player decides to stop the game or start again.
+                  var startOver = confirm('You won! Would you like to play again?');
+                  if(startOver) {
+                    // Display a message to the player on screen.
+                    message.innerHTML = 'Great! Let\'s play again!';
+
+                    // Delay the start of the next game.
+                    setTimeout(function() {
+                      message.innerHTML = ''; // Clear the message to the user displayed upon winning.
+                      beachHangman.setUpGame();
+                      beachHangman.playGame();
+                    }, 5000);
+                  } else {
+                    message.innerHTML = 'Thank you for playing! Have a nice day!';
+                  }
 
               }
 
               // If the numOfGuesses is 0 and all the letters are not visible, the player loses and the game ends.
               if (beachHangman.numOfGuesses === 0 && lettersVisible !== beachHangman.randomWord.length) {
-                  beachHangman.startOver = true;
 
                   // Update the DOM with the final game information.
                   alreadyGuessed.innerHTML = 'Letters Already Guessed: ' + alreadyGuessedLetters.join(' ').toUpperCase();
                   guessesRemaining.innerHTML = "Number of Guesses Remaining: " + beachHangman.numOfGuesses;
-                  // Display a message to the player on screen.
-                  message.innerHTML = 'You didn\'t guess the word! Let\'s play again.';
+
                   // The game ends and the event listener is removed.
                   document.removeEventListener('keyup', release);
 
@@ -152,18 +153,24 @@ var beachHangman = {
                       lettersClass[i].style.visibility = "visible";
                   }
 
-                  // Start the game over.
-                  // Delay the start of the next game.
-                  setTimeout(function() {
-                      if (beachHangman.startOver) {
+                  // The player decides to stop the game or start again.
+                  var startOver = confirm('You didn\'t guess the word. Would you like to play again?');
+
+                  if (startOver) {
+                    // Display a message to the player on screen.
+                    message.innerHTML = 'Let\'s try again!';
+
+                    // Delay the start of the next game.
+                    setTimeout(function() {
                           message.innerHTML = ''; // Clear the message to the player displayed upon losing.
                           beachHangman.setUpGame();
                           beachHangman.playGame();
-                      }
-                      beachHangman.startOver = false;
-                  }, 5000);
+                      }, 3000);
+                    } else {
+                      message.innerHTML = 'Thank you for playing! Have a nice day!';
+                    }
 
-              }
+                  }
 
           } else {
               // If the keyup event value is not a lower case letter, alert the player to select a letter.
