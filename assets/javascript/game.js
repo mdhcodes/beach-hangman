@@ -1,45 +1,111 @@
 // Beach Hangman Game
 
 // Global Variables
-var beachWords = ['beach', 'waves', 'ocean', 'bay', 'beachball', 'boardwalk', 'sea', 'boat', 'lifeguard', 'sand', 'seashells',
-    'seashore', 'starfish', 'sun', 'sunglasses', 'tide', 'surfboard', 'swim', 'towel', 'seagulls'
-];
+const beachWords = ['beach',
+                    'waves',
+                    'ocean',
+                    'bay',
+                    'beachball',
+                    'boardwalk',
+                    'sea',
+                    'boat',
+                    'lifeguard',
+                    'sand',
+                    'seashells',
+                    'seashore',
+                    'starfish',
+                    'sun',
+                    'sunglasses',
+                    'tide',
+                    'surfboard',
+                    'swim',
+                    'towel',
+                    'seagulls'
+                  ];
 
-var wins = document.getElementById('wins');
-var guessesRemaining = document.getElementById('guesses-remaining');
-var alreadyGuessed = document.getElementById('already-guessed');
-var message = document.getElementById('message');
-var lettersClass = document.getElementsByClassName('letters');
-var spacesClass = document.getElementsByClassName('spaces');
+const wins = document.getElementById('wins');
+const guessesRemaining = document.getElementById('guesses-remaining');
+const alreadyGuessed = document.getElementById('already-guessed');
+const guessedLetters = document.getElementById('guessed-letters');
+const message = document.getElementById('message');
+const lettersClass = document.getElementsByClassName('letters');
+const spacesClass = document.getElementsByClassName('spaces');
 
-var beachHangman = {
+
+const beachHangman = {
   randomWord: "",
   numOfGuesses: 0,
   numWins: 0,
+  clearGame: function() {
+    alreadyGuessed.textContent = '';
+    guessesRemaining.textContent = '';
+    guessedLetters.textContent = '';
+  },
+  restartGame: function() {
+
+    // Create yes and no buttons
+    const lineBreak = document.createElement('br')
+    const answerYes = document.createElement('button');
+    answerYes.setAttribute('class', 'answer-yes');
+    const answerNo = document.createElement('button');
+    answerNo.setAttribute('class', 'answer-no');
+    answerYes.textContent = 'YES';
+    answerNo.textContent = 'NO';
+    message.append(lineBreak);
+    message.append(answerYes);
+    message.append(answerNo);
+
+    const startOverTrue = answerYes.addEventListener('click', function() {
+
+      // Clear game content
+      beachHangman.clearGame();
+
+      // Display a message to the player on screen.
+      message.textContent = 'Great! Let\'s play again!';
+
+      // Delay the start of the next game.
+      setTimeout(function() {
+            message.textContent = ''; // Clear the message to the player displayed upon losing.
+            beachHangman.setUpGame();
+            beachHangman.playGame();
+        }, 3000);
+    });
+
+    const startOverFalse = answerNo.addEventListener('click', function() {
+
+      // Clear game content
+      beachHangman.clearGame();
+
+      message.textContent = 'Thanks for playing! Have a nice day!';
+    });
+  },
   setUpGame: function() { // Function to prepare the game board.
 
+      // Clear game content
+      beachHangman.clearGame();
+
       // Select a random word from the array of beachWords.
-      var random = Math.floor(Math.random() * beachWords.length); // Returns a random number from 0 to the value of (beachWords.length - 1).
+      const random = Math.floor(Math.random() * beachWords.length); // Returns a random number from 0 to the value of (beachWords.length - 1).
 
       // Assign a random word from the beachWords array to the variable named randomWord.
       beachHangman.randomWord = beachWords[random];
 
       // Update the DOM with the number of wins stored in the numWins variable.
-      wins.innerHTML = 'Wins: ' + beachHangman.numWins;
+      wins.textContent = 'Wins: ' + beachHangman.numWins;
 
       // Set the value of the numOfGuesses variable to the number of guesses allowed for each word.
       beachHangman.numOfGuesses = beachHangman.randomWord.length + 5;
-      guessesRemaining.innerHTML = 'Number of Guesses Remaining: ' + beachHangman.numOfGuesses;
+      guessesRemaining.textContent = 'Number of Guesses Remaining: ' + beachHangman.numOfGuesses;
 
       // Store alreadyGuessed letters in the array alreadyGuessedLetters to display on screen.
-      alreadyGuessed.innerHTML = 'Letters Already Guessed: ';
+      alreadyGuessed.textContent = 'Letters Already Guessed: ';
 
-      var letters = document.getElementById('letters');
-      var spaces = document.getElementById('spaces');
-      var beachWord = [];
-      var letterSpaces = [];
+      const letters = document.getElementById('letters');
+      const spaces = document.getElementById('spaces');
+      let beachWord = [];
+      let letterSpaces = [];
 
-      for (var i = 0; i < beachHangman.randomWord.length; i++) {
+      for (let i = 0; i < beachHangman.randomWord.length; i++) {
 
           // Create individual div elements for each letter and store them in an array named beachWord. Position each div with CSS.
           beachWord.push('<div class="letters">' + beachHangman.randomWord[i] + '</div> ');
@@ -47,6 +113,7 @@ var beachHangman = {
           letterSpaces.push('<div class="spaces"></div> ');
 
       }
+
       // Update the DOM to display each letter in the beachWord array without any commas.
       letters.innerHTML = beachWord.join('');
       // Update the DOM to display each space in the letterSpaces array without any commas.
@@ -59,15 +126,15 @@ var beachHangman = {
 
       // Create a new array for the alreadyGuessedLetters each time a new game begins.
       // Store alreadyGuessed letters in the array alreadyGuessedLetters.
-      var alreadyGuessedLetters = [];
+      let alreadyGuessedLetters = [];
 
       // Add an event listener to record each keyup occurrence
       document.addEventListener('keyup', function release(event) {
-          var keyUp = event.key;
-          var keyUpLower = keyUp.toLowerCase(); // Convert each keyup string character to a lower case string.
-          var lowerLettersOnly = /^[a-z]$/; // Regular expression pattern to match only lower case letters. This pattern starts with a ^ to match the beginning of input with the following character set [a-z] (all lower case letters). It ends with a $ to match the end of input with the character set specified.
-
-          // Check to make sure that the keyup event captured a lower case letter. If not, an alert will display a message asking the player to select a letter.
+          const keyUp = event.key;
+          const keyUpLower = keyUp.toLowerCase(); // Convert each keyup string character to a lower case string.
+          const lowerLettersOnly = /^[a-z]$/; // Regular expression pattern to match only lower case letters. This pattern starts with a ^ to match the beginning of input with the following character set [a-z] (all lower case letters). It ends with a $ to match the end of input with the character set specified.
+          message.textContent = "";
+          // Check to make sure that the keyup event captured a lower case letter. If not, a message will display asking the player to select a letter.
           if (keyUpLower.match(lowerLettersOnly)) {
 
               // Check to determine if the letter the player guessed is in the randomWord and if it was already guessed.
@@ -75,16 +142,17 @@ var beachHangman = {
                   // If the user guesses incorrectly, subtract 1 from the guessesRemaining.
                   beachHangman.numOfGuesses--;
                   // Update the DOM with the current numOfGuesses left.
-                  guessesRemaining.innerHTML = "Number of Guesses Remaining: " + beachHangman.numOfGuesses;
+                  guessesRemaining.textContent = "Number of Guesses Remaining: " + beachHangman.numOfGuesses;
                   // Store incorrect guesses in the alreadyGuessedLetters array.
                   alreadyGuessedLetters.push(keyUpLower);
                   // Update the DOM with the incorrect alreadyGuessed letters by joining the array with a space between each string and convert each letter to upper case.
-                  alreadyGuessed.innerHTML = "Letters Already Guessed: " + alreadyGuessedLetters.join(" ").toUpperCase();
+                  alreadyGuessed.textContent = "Letters Already Guessed: ";
+                  guessedLetters.textContent = alreadyGuessedLetters.join(' ');
               } else {
                   // If the user guessed the correct letter, display that letter and hide the space below it.
-                  for (var i = 0; i < lettersClass.length; i++) {
-                      // Check that the keyup event value is equal to a string in the innerHTML of an element with a class of letters.
-                      if (keyUpLower === lettersClass[i].innerHTML) {
+                  for (let i = 0; i < lettersClass.length; i++) {
+                      // Check that the keyup event value is equal to a string in the textContent of an element with a class of letters.
+                      if (keyUpLower === lettersClass[i].textContent) {
                           lettersClass[i].style.visibility = "visible";
                           spacesClass[i].style.visibility = "hidden";
                       }
@@ -92,8 +160,8 @@ var beachHangman = {
               }
 
               // Keep track of the number of lettersVisible.
-              var lettersVisible = 0;
-              for (var i = 0; i < lettersClass.length; i++) {
+              let lettersVisible = 0;
+              for (let i = 0; i < lettersClass.length; i++) {
                   if (lettersClass[i].style.visibility === "visible") {
                       lettersVisible++;
                   }
@@ -109,31 +177,19 @@ var beachHangman = {
                   beachHangman.numWins++;
 
                   // Update the DOM to reflect the number of wins.
-                  wins.innerHTML = 'Wins: ' + beachHangman.numWins;
+                  wins.textContent = 'Wins: ' + beachHangman.numWins;
 
                   // After each game, clear the alreadyGuessed and guessesRemaining DOM output.
-                  alreadyGuessed.innerHTML = 'Letters Already Guessed: ';
-                  guessesRemaining.innerHTML = "Number of Guesses Remaining: ";
+                  beachHangman.clearGame();
 
                   // Play ocean sounds when the user wins.
-                  var audio = new Audio('assets/audio/seashore.mp3');
+                  const audio = new Audio('assets/audio/seashore.mp3');
                   audio.play();
 
-                  // The player decides to stop the game or start again.
-                  var startOver = confirm('You won! Would you like to play again?');
-                  if(startOver) {
-                    // Display a message to the player on screen.
-                    message.innerHTML = 'Great! Let\'s play again!';
+                  // The player decides to stop or restart the game.
+                  message.textContent = 'You won! Would you like to play again?';
 
-                    // Delay the start of the next game.
-                    setTimeout(function() {
-                      message.innerHTML = ''; // Clear the message to the user displayed upon winning.
-                      beachHangman.setUpGame();
-                      beachHangman.playGame();
-                    }, 5000);
-                  } else {
-                    message.innerHTML = 'Thank you for playing! Have a nice day!';
-                  }
+                  beachHangman.restartGame();
 
               }
 
@@ -141,40 +197,28 @@ var beachHangman = {
               if (beachHangman.numOfGuesses === 0 && lettersVisible !== beachHangman.randomWord.length) {
 
                   // Update the DOM with the final game information.
-                  alreadyGuessed.innerHTML = 'Letters Already Guessed: ' + alreadyGuessedLetters.join(' ').toUpperCase();
-                  guessesRemaining.innerHTML = "Number of Guesses Remaining: " + beachHangman.numOfGuesses;
-
+                  alreadyGuessed.textContent = 'Letters Already Guessed: ' + alreadyGuessedLetters.join(' ');
+                  guessesRemaining.textContent = 'Number of Guesses Remaining: ' + beachHangman.numOfGuesses;
+                  guessedLetters.textContent = alreadyGuessedLetters.join(' ');
                   // The game ends and the event listener is removed.
                   document.removeEventListener('keyup', release);
 
                   // Display all letters and reveal the missed word.
-                  for (var i = 0; i < lettersClass.length; i++) {
+                  for (let i = 0; i < lettersClass.length; i++) {
                       // Reveal all letters in the random word by changing the value of all elements with the class .letters to visible.
                       lettersClass[i].style.visibility = "visible";
                   }
 
-                  // The player decides to stop the game or start again.
-                  var startOver = confirm('You didn\'t guess the word. Would you like to play again?');
+                  // The player decides to stop or restart the game.
+                  message.textContent = 'You didn\'t guess the word. Would you like to play again?';
 
-                  if (startOver) {
-                    // Display a message to the player on screen.
-                    message.innerHTML = 'Let\'s try again!';
+                  beachHangman.restartGame();
 
-                    // Delay the start of the next game.
-                    setTimeout(function() {
-                          message.innerHTML = ''; // Clear the message to the player displayed upon losing.
-                          beachHangman.setUpGame();
-                          beachHangman.playGame();
-                      }, 3000);
-                    } else {
-                      message.innerHTML = 'Thank you for playing! Have a nice day!';
-                    }
-
-                  }
+                }
 
           } else {
               // If the keyup event value is not a lower case letter, alert the player to select a letter.
-              alert('Please select a letter.');
+              message.textContent = 'Please select a letter.';
           } // end if keyUpLower
 
       }); // end keyup event listener
@@ -189,8 +233,8 @@ document.addEventListener('keyup', function liftUp(event) {
 
     // Press any key to start the game.
     // Listen for one keyup event only.
-    var keyUp = event.key;
-    var count = 0;
+    const keyUp = event.key;
+    let count = 0;
     if (keyUp) {
 
         // Hide the instructions to press any key to get started.
