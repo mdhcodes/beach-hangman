@@ -59,6 +59,8 @@ const beachHangman = {
 
       // Clear game content
       beachHangman.clearGame();
+      letters.innerHTML = '';
+      spaces.innerHTML = '';
 
       // Display a message to the player on screen.
       message.textContent = 'Great! Let\'s play again!';
@@ -75,6 +77,8 @@ const beachHangman = {
 
       // Clear game content
       beachHangman.clearGame();
+      letters.innerHTML = '';
+      spaces.innerHTML = '';
 
       message.textContent = 'Thanks for playing! Have a nice day!';
     });
@@ -179,7 +183,7 @@ const beachHangman = {
                   // Update the DOM to reflect the number of wins.
                   wins.textContent = 'Wins: ' + beachHangman.numWins;
 
-                  // After each game, clear the alreadyGuessed and guessesRemaining DOM output.
+                  // After a win, clear the game content // alreadyGuessed and guessesRemaining DOM output.
                   beachHangman.clearGame();
 
                   // Play ocean sounds when the user wins.
@@ -197,7 +201,6 @@ const beachHangman = {
               if (beachHangman.numOfGuesses === 0 && lettersVisible !== beachHangman.randomWord.length) {
 
                   // Update the DOM with the final game information.
-                  alreadyGuessed.textContent = 'Letters Already Guessed: ' + alreadyGuessedLetters.join(' ');
                   guessesRemaining.textContent = 'Number of Guesses Remaining: ' + beachHangman.numOfGuesses;
                   guessedLetters.textContent = alreadyGuessedLetters.join(' ');
                   // The game ends and the event listener is removed.
