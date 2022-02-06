@@ -11,6 +11,11 @@ body {
     background-attachment: fixed;
 }
 
+.container {
+    padding: 20px;
+    text-align: center;
+}
+
 h1 {
     font-size: 2.5em;
 }
@@ -24,49 +29,40 @@ h3 {
 }
 
 main {
-    max-width: 960px;
-    margin: 0 auto;
     color: #fff;
 }
 
 header {
-    text-align: center;
     margin-top: 20px;
     margin-bottom: 50px;
 }
 
-.container {
-    width: 800px;
+.stats {
     height: auto;
-    margin: 0 auto;
 }
 
 h3:last-child {
     margin-top: 60px;
-    text-align: center;
 }
 
 #game {
-    width: 900px;
     height: 200px;
-    margin: 0 auto 100px;
     padding-top: 20px;
-    text-align: center;
     font-size: 40px;
     position: relative;
 }
 
 .spaces,
 .letters {
-    text-align: center;
-    width: 50px;
+    width: 20px;
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 2px;
     position: relative;
 }
 
 .spaces {
     bottom: 50px;
+    width: 20px;
     border-top: 5px solid #fff;
 }
 
@@ -74,12 +70,26 @@ h3:last-child {
     visibility: hidden;
 }
 
-#message {
-    text-align: center;
+button {
+  margin-top: 50px;
+  margin-left: 20px;
+  padding: 10px;
+  width: 100px;
+  border-radius: 5px;
+}
+
+.answer-yes {
+  background: #4aa02c;
+  border: none;
+}
+
+.answer-no {
+  background: #f03e3e;
+  border: none;
 }
 
 footer {
-    font-size: 10px;
-    width: 100%;
-    text-align: center;
+  font-size: 10px;
+  width: 100%;
+  text-align: center;
 }

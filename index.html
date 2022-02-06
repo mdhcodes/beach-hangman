@@ -12,15 +12,17 @@
 </head>
 
 <body>
+  <div class="container">
     <header>
         <h1>Beach Hangman Game</h1>
         <h2 id="start">Press any key to get started!</h2>
     </header>
     <main>
-        <div class="container">
+        <div class="stats">
             <h3 id="wins"></h3>
             <h3 id="guesses-remaining"></h3>
             <h3 id="already-guessed"></h3>
+            <h3 id="guessed-letters"></h3>
             <h3 id="message"></h3>
             <h3 id="current-word"></h3>
         </div>
@@ -28,9 +30,13 @@
             <div id="letters"></div>
             <div id="spaces"></div>
         </div>
+        <div>
+          <div id="letter-buttons"></div>
+        </div>
     </main>
+  </div>
     <footer>
-        <p>© 2017 Michelle Hartley ♥</p>
+        <p>© 2022 Michelle Hartley ♥</p>
     </footer>
     <script src="assets/javascript/game.js"></script>
 </body>
