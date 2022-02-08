@@ -45,6 +45,18 @@ h3:last-child {
     margin-top: 60px;
 }
 
+#guessed-letters {
+  height: 50px;
+}
+
+#message {
+  padding: 20px;
+  border-radius: 5px;
+  width: 25em;
+  margin: 0 auto;
+  visibility: hidden;
+}
+
 #game {
     height: 200px;
     padding-top: 20px;
