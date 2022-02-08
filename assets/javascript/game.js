@@ -54,6 +54,7 @@ const beachHangman = {
     message.append(lineBreak);
     message.append(answerYes);
     message.append(answerNo);
+    message.style.visibility = 'visible';
 
     const startOverTrue = answerYes.addEventListener('click', function() {
 
@@ -64,10 +65,12 @@ const beachHangman = {
 
       // Display a message to the player on screen.
       message.textContent = 'Great! Let\'s play again!';
+      message.style.visibility = 'visible';
 
       // Delay the start of the next game.
       setTimeout(function() {
             message.textContent = ''; // Clear the message to the player displayed upon losing.
+            message.style.visibility = 'hidden';
             beachHangman.setUpGame();
             beachHangman.playGame();
         }, 3000);
@@ -81,6 +84,7 @@ const beachHangman = {
       spaces.innerHTML = '';
 
       message.textContent = 'Thanks for playing! Have a nice day!';
+      message.style.visibility = 'visible';
     });
   },
   setUpGame: function() { // Function to prepare the game board.
@@ -137,7 +141,10 @@ const beachHangman = {
           const keyUp = event.key;
           const keyUpLower = keyUp.toLowerCase(); // Convert each keyup string character to a lower case string.
           const lowerLettersOnly = /^[a-z]$/; // Regular expression pattern to match only lower case letters. This pattern starts with a ^ to match the beginning of input with the following character set [a-z] (all lower case letters). It ends with a $ to match the end of input with the character set specified.
-          message.textContent = "";
+
+          message.style.visibility = 'hidden';
+          // message.textContent = "";
+
           // Check to make sure that the keyup event captured a lower case letter. If not, a message will display asking the player to select a letter.
           if (keyUpLower.match(lowerLettersOnly)) {
 
@@ -192,6 +199,8 @@ const beachHangman = {
 
                   // The player decides to stop or restart the game.
                   message.textContent = 'You won! Would you like to play again?';
+                  message.style.background = 'rgba(135, 154, 166, 0.7)';
+                  message.style.visibility = 'visible';
 
                   beachHangman.restartGame();
 
@@ -214,6 +223,8 @@ const beachHangman = {
 
                   // The player decides to stop or restart the game.
                   message.textContent = 'You didn\'t guess the word. Would you like to play again?';
+                  message.style.background = 'rgba(135, 154, 166, 0.7)';
+                  message.style.visibility = 'visible';
 
                   beachHangman.restartGame();
 
@@ -222,6 +233,8 @@ const beachHangman = {
           } else {
               // If the keyup event value is not a lower case letter, alert the player to select a letter.
               message.textContent = 'Please select a letter.';
+              message.style.background = 'rgba(255, 107, 107, 0.7)';
+              message.style.visibility = 'visible';
           } // end if keyUpLower
 
       }); // end keyup event listener
